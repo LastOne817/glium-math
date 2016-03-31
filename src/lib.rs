@@ -3,7 +3,7 @@ extern crate glium;
 extern crate obj;
 
 use obj::*;
-use std::ops::{Add, Sub, Mul, Index, IndexMut};
+use std::ops::{Add, Sub, Mul, Div, Index, IndexMut};
 
 #[derive(Copy, Clone)]
 pub struct Vector3 {
@@ -57,6 +57,14 @@ impl Mul<f32> for Vector3 {
 
     fn mul(self, other: f32) -> Vector3 {
         Vector3 { x: other * self.x, y: other * self.y, z: other * self.z }
+    }
+}
+
+impl Div<f32> for Vector3 {
+    type Output = Vector3;
+
+    fn div(self, other: f32) -> Vector3 {
+        Vector3 { x: self.x / other, y: self.y / other, z: self.z / other }
     }
 }
 
@@ -160,6 +168,14 @@ impl Mul<f32> for Vector4 {
     }
 }
 
+impl Div<f32> for Vector4 {
+    type Output = Vector4;
+
+    fn div(self, other: f32) -> Vector4 {
+        Vector4 { x: self.x / other, y: self.y / other, z: self.z / other, w: self.w / other }
+    }
+}
+
 impl Mul<Vector4> for f32 {
     type Output = Vector4;
 
@@ -209,6 +225,26 @@ impl Mul<f32> for Matrix4 {
             z: self.z * other,
             w: self.w * other,
         }
+    }
+}
+
+impl Div<f32> for Matrix4 {
+    type Output = Matrix4;
+
+    fn div(self, other: f32) -> Matrix4 {
+        Matrix4 {
+            x: self.x / other,
+            y: self.y / other,
+            z: self.z / other,
+            w: self.w / other,
+        }
+    }
+}
+
+impl Vector3 {
+    pub fn normalize(&self) -> Vector3 {
+        let len = (self.x.powi(2) + self.y.powi(2) + self.z.powi(2)).sqrt();
+        *self / len
     }
 }
 
@@ -330,7 +366,7 @@ impl Quaternion {
 
     pub fn rotate_angle_axis(theta: f32, axis: Vector3) -> Quaternion {
         let p = Quaternion::new(0.0, axis.x, axis.y, axis.z);
-        let q = Quaternion::from_angle_axis((theta / 2.0).cos(), (theta / 2.0).sin() * axis);
+        let q = Quaternion::from_angle_axis((theta / 2.0).cos(), (theta / 2.0).sin() * axis.normalize());
         q * p * q.inverse()
     }
 
