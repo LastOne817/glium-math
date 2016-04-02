@@ -1,6 +1,6 @@
 use std::ops::{Add, Sub, Mul, Div, Index, IndexMut};
 
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Debug)]
 pub struct Vector4 {
     pub x: f32,
     pub y: f32,
@@ -8,6 +8,14 @@ pub struct Vector4 {
     pub w: f32,
 }
 
+impl PartialEq for Vector4 {
+    fn eq(&self, other: &Self) -> bool {
+        (self.x - other.x).abs() < 0.0001 &&
+        (self.y - other.y).abs() < 0.0001 &&
+        (self.z - other.z).abs() < 0.0001 &&
+        (self.w - other.w).abs() < 0.0001
+    }
+}
 
 impl Index<u8> for Vector4 {
     type Output = f32;
