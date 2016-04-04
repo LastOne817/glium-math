@@ -1,4 +1,4 @@
-use std::ops::{Add, Sub, Mul, Div, Index, IndexMut};
+use std::ops::{Add, Sub, Mul, Div, Index, IndexMut, Neg};
 
 #[derive(Copy, Clone, Debug)]
 pub struct Vector3 {
@@ -55,10 +55,34 @@ impl Mul<Vector3> for f32 {
     }
 }
 
+impl Neg for Vector3 {
+    type Output = Vector3;
+
+    fn neg(self) -> Vector3 {
+        Vector3::new(self.x, self.y, self.z)
+    }
+}
+
 impl Vector3 {
+    pub fn new(x: f32, y: f32, z: f32) -> Vector3 {
+        Vector3 { x: x, y: y, z: z }
+    }
+
     pub fn normalize(&self) -> Vector3 {
         let len = (self.x.powi(2) + self.y.powi(2) + self.z.powi(2)).sqrt();
         *self / len
+    }
+
+    pub fn dot(a: Vector3, b: Vector3) -> f32 {
+        a[0] * b[0] + a[1] * b[1] + a[2] * b[2]
+    }
+
+    pub fn cross(a: Vector3, b: Vector3) -> Vector3 {
+        Vector3::new(
+            a[1] * b[2] - a[2] * b[1],
+            a[2] * b[0] - a[0] * b[2],
+            a[0] * b[1] - a[1] * b[0],
+        )
     }
 }
 
