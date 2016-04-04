@@ -132,7 +132,7 @@ impl Matrix4 {
         }
     }
 
-    pub fn transform(x: f32, y: f32, z: f32) -> Matrix4 {
+    pub fn translate(x: f32, y: f32, z: f32) -> Matrix4 {
         Matrix4::new(
             1.0, 0.0, 0.0,  x ,
             0.0, 1.0, 0.0,  y ,
