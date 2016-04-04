@@ -1,3 +1,6 @@
+extern crate glium;
+
+use glium::uniforms::*;
 use std::ops::{Add, Sub, Mul, Div, Index, IndexMut, Neg};
 
 #[derive(Copy, Clone, Debug)]
@@ -110,3 +113,8 @@ impl IndexMut<u8> for Vector3 {
     }
 }
 
+impl AsUniformValue for Vector3 {
+    fn as_uniform_value(&self) -> UniformValue {
+        UniformValue::Vec3([self[0], self[1], self[2]])
+    }
+}

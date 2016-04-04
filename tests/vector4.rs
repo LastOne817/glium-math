@@ -1,4 +1,6 @@
 extern crate gmath;
+#[macro_use]
+extern crate glium;
 
 use std::f32::EPSILON;
 use gmath::vector::vector4::*;
@@ -48,4 +50,9 @@ fn indexing() {
 fn indexing_fail() {
     let v1 = Vector4::new( 1.2, -3.0, -4.2, 2.7);
     assert!((v1[4] - 2.7) < EPSILON);
+}
+
+#[test]
+fn uniform() {
+    uniform! {v: Vector4::new(1.0, 2.0, 3.0, 4.0)};
 }

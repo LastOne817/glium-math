@@ -1,3 +1,5 @@
+#[macro_use]
+extern crate glium;
 extern crate gmath;
 
 use std::f32::EPSILON;
@@ -47,4 +49,9 @@ fn indexing() {
 fn indexing_fail() {
     let v1 = Vector3 { x: 2.0, y: -1.0, z: -2.0 };
     v1[3];
+}
+
+#[test]
+fn uniform() {
+    uniform! {v: Vector3::new(1.0, 2.0, 3.0)};
 }

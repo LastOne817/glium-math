@@ -1,4 +1,7 @@
+extern crate glium;
+
 use std::ops::{Add, Sub, Mul, Div, Index, IndexMut};
+use glium::uniforms::*;
 
 #[derive(Copy, Clone, Debug)]
 pub struct Vector4 {
@@ -113,3 +116,8 @@ impl Vector4 {
     }
 }
 
+impl AsUniformValue for Vector4 {
+    fn as_uniform_value(&self) -> UniformValue {
+        UniformValue::Vec4([self[0], self[1], self[2], self[3]])
+    }
+}
