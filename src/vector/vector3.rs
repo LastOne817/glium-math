@@ -64,7 +64,7 @@ impl Neg for Vector3 {
     type Output = Vector3;
 
     fn neg(self) -> Vector3 {
-        Vector3::new(self.x, self.y, self.z)
+        Vector3::new(-self.x, -self.y, -self.z)
     }
 }
 
