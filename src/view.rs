@@ -7,10 +7,10 @@ pub fn view_matrix(position: &Vector3, direction: &Vector3, up: &Vector3) -> Mat
     let s_norm = s.normalize();
     let u = Vector3::cross(f, s_norm);
 
-    let p = Vector3::new(
-        Vector3::dot(-*position, s_norm),
-        Vector3::dot(-*position, u),
-        Vector3::dot(-*position, f),
+    let p = -Vector3::new(
+        Vector3::dot(*position, s_norm),
+        Vector3::dot(*position, u),
+        Vector3::dot(*position, f),
     );
 
     Matrix4::new(
