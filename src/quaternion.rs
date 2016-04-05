@@ -48,9 +48,7 @@ impl Quaternion {
     }
 
     pub fn rotate_angle_axis(theta: f32, axis: Vector3) -> Quaternion {
-        let p = Quaternion::new(0.0, axis.x, axis.y, axis.z);
-        let q = Quaternion::from_angle_axis((theta / 2.0).cos(), (theta / 2.0).sin() * axis.normalize());
-        q * p * q.inverse()
+        Quaternion::from_angle_axis((theta / 2.0).cos(), (theta / 2.0).sin() * axis.normalize())
     }
 
     pub fn to_matrix(&self) -> Matrix4 {
