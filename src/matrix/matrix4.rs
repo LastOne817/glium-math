@@ -4,13 +4,23 @@ use glium::uniforms::*;
 use std::ops::{Add, Sub, Mul, Div, Index, IndexMut};
 use super::super::vector::vector4::*;
 
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Debug)]
 pub struct Matrix4 {
     pub x: Vector4,
     pub y: Vector4,
     pub z: Vector4,
     pub w: Vector4,
 }
+
+impl PartialEq for Matrix4 {
+    fn eq(&self, other: &Self) -> bool {
+        (self.x == other.x) &&
+        (self.y == other.y) &&
+        (self.z == other.z) &&
+        (self.w == other.w)
+    }
+}
+
 
 impl Index<u8> for Matrix4 {
     type Output = Vector4;
@@ -164,10 +174,10 @@ impl AsUniformValue for Matrix4 {
     fn as_uniform_value(&self) -> UniformValue {
         UniformValue::Mat4(
             [
-                [self[0][0], self[0][1], self[0][2], self[0][3]],
-                [self[1][0], self[1][1], self[1][2], self[1][3]],
-                [self[2][0], self[2][1], self[2][2], self[2][3]],
-                [self[3][0], self[3][1], self[3][2], self[3][3]],
+                [self[0][0], self[1][0], self[2][0], self[3][0]],
+                [self[0][1], self[1][1], self[2][1], self[3][1]],
+                [self[0][2], self[1][2], self[2][2], self[3][2]],
+                [self[0][3], self[1][3], self[2][3], self[3][3]],
             ]
         )
     }
