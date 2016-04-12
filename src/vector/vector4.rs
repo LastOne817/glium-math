@@ -2,6 +2,7 @@ extern crate glium;
 
 use std::ops::{Add, Sub, Mul, Div, Index, IndexMut};
 use glium::uniforms::*;
+use super::vector3::*;
 
 #[derive(Copy, Clone, Debug)]
 pub struct Vector4 {
@@ -113,6 +114,10 @@ impl Vector4 {
 
     pub fn dot(a: Vector4, b: Vector4) -> f32 {
         a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + a[3] * b[3]
+    }
+
+    pub fn truncate(&self) -> Vector3 {
+        Vector3::new(self.x, self.y, self.z)
     }
 }
 

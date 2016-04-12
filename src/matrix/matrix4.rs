@@ -1,4 +1,5 @@
 extern crate glium;
+extern crate cgmath;
 
 use glium::uniforms::*;
 use std::ops::{Add, Sub, Mul, Div, Index, IndexMut};
@@ -166,6 +167,22 @@ impl Matrix4 {
             self[0][1], self[1][1], self[2][1], self[3][1],
             self[0][2], self[1][2], self[2][2], self[3][2],
             self[0][3], self[1][3], self[2][3], self[3][3],
+        )
+    }
+
+    pub fn inverse(&self) -> Matrix4 {
+        use cgmath::*;
+        let a = Matrix4::new(
+            self[0][0], self[1][0], self[2][0], self[3][0],
+            self[0][1], self[1][1], self[2][1], self[3][1],
+            self[0][2], self[1][2], self[2][2], self[3][2],
+            self[0][3], self[1][3], self[2][3], self[3][3],
+        ).invert().unwrap();
+        self::Matrix4::new(
+            a.x.x, a.y.x, a.z.x, a.w.x,
+            a.x.y, a.y.y, a.z.y, a.w.y,
+            a.x.z, a.y.z, a.z.z, a.w.z,
+            a.x.w, a.y.w, a.z.w, a.w.w,
         )
     }
 }

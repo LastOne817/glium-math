@@ -18,13 +18,13 @@ pub fn view_matrix(position: &Vector3, direction: &Vector3, up: &Vector3) -> Mat
         s[1], u[1], f[1], 0.0,
         s[2], u[2], f[2], 0.0,
         p[0], p[1], p[2], 1.0,
-    )
+    ).transpose()
 }
 
 pub fn perspective(width: u32, height: u32, fov: f32) -> Matrix4 {
     let aspect_ratio = height as f32 / width as f32;
 
-    let zfar = 1024.0;
+    let zfar = 2048.0;
     let znear = 0.1;
 
     let f = 1.0 / (fov / 2.0).tan();
@@ -34,5 +34,5 @@ pub fn perspective(width: u32, height: u32, fov: f32) -> Matrix4 {
         0.0,            f,      0.0,                            0.0,
         0.0,            0.0,    (zfar+znear)/(zfar-znear),      1.0,
         0.0,            0.0,    -(2.0*zfar*znear)/(zfar-znear), 0.0,
-    )
+    ).transpose()
 }

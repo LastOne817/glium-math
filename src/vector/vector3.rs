@@ -4,6 +4,7 @@ use glium::uniforms::*;
 use glium::vertex::*;
 use glium::CapabilitiesSource;
 use std::ops::{Add, Sub, Mul, Div, Index, IndexMut, Neg};
+use super::vector4::*;
 
 #[derive(Copy, Clone, Debug)]
 pub struct Vector3 {
@@ -73,6 +74,10 @@ impl Vector3 {
         Vector3 { x: x, y: y, z: z }
     }
 
+    pub fn zero() -> Vector3 {
+        Vector3::new(0.0, 0.0, 0.0)
+    }
+
     pub fn normalize(&self) -> Vector3 {
         let len = (self.x.powi(2) + self.y.powi(2) + self.z.powi(2)).sqrt();
         *self / len
@@ -88,6 +93,14 @@ impl Vector3 {
             a[2] * b[0] - a[0] * b[2],
             a[0] * b[1] - a[1] * b[0],
         )
+    }
+
+    pub fn abs(&self) -> f32 {
+        (&self.x.powi(2) + &self.y.powi(2) + &self.z.powi(2)).sqrt()
+    }
+
+    pub fn extend(&self) -> Vector4 {
+        Vector4::new(self.x, self.y, self.z, 1.0)
     }
 }
 
